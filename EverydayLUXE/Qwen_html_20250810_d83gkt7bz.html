@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Cart | EverydayLUXE</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="/" class="logo">Everyday<span>LUXE</span></a>
+      <nav>
+        <a href="../shop.html">Shop</a>
+        <a href="../pages/about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Cart Page -->
+  <div class="container" style="margin: 40px 0;">
+    <h1>Your Cart</h1>
+    <table id="cart-table" width="100%" style="border-collapse: collapse; margin: 20px 0;">
+      <thead>
+        <tr style="border-bottom: 2px solid #ddd;">
+          <th style="text-align: left; padding: 10px;">Item</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Cart items will be inserted here -->
+      </tbody>
+    </table>
+
+    <div id="cart-empty" style="display: none; text-align: center; padding: 40px; color: #666;">
+      Your cart is empty. <a href="../shop.html" style="color: #c4a484;">Continue Shopping</a>
+    </div>
+
+    <div id="cart-footer" style="display: none; text-align: right; margin-top: 30px;">
+      <h3>Total: $<span id="cart-total">0.00</span></h3>
+      <p style="color: #666;">Free delivery on orders over $499</p>
+      <div style="margin: 20px 0;">
+        <button onclick="window.location.href='checkout.html'" style="background: #c4a484; color: white; padding: 12px 24px; border: none; border-radius: 4px; font-weight: 600;">Proceed to Checkout</button>
+        <a href="../shop.html" class="btn" style="margin-left: 10px; background: #ddd; color: #333;">Continue Shopping</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-cols">
+        <div>
+          <h4>EverydayLUXE</h4>
+          <p>Premium furniture for modern Australian homes.</p>
+        </div>
+        <div>
+          <h4>Shop</h4>
+          <a href="../shop.html?room=living">Living Room</a><br>
+          <a href="../shop.html?room=bedroom">Bedroom</a><br>
+          <a href="../shop.html?room=dining">Dining</a>
+        </div>
+        <div>
+          <h4>Help</h4>
+          <a href="../pages/about.html">About Us</a><br>
+          <a href="../pages/shipping.html">Delivery</a><br>
+          <a href="../pages/returns.html">Returns</a>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        EverydayLUXE is an independent retailer and is not affiliated with, endorsed by, or sponsored by Ashley Furniture Industries, Inc. 
+        All product images are for illustration only. ABN: 12 345 678 901.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const tableBody = document.querySelector('#cart-table tbody');
+    const emptyMsg = document.getElementById('cart-empty');
+    const cartFooter = document.getElementById('cart-footer');
+
+    function renderCart() {
+      if (cart.length === 0) {
+        emptyMsg.style.display = 'block';
+        cartFooter.style.display = 'none';
+        return;
+      }
+
+      emptyMsg.style.display = 'none';
+      cartFooter.style.display = 'block';
+
+      tableBody.innerHTML = '';
+      let total = 0;
+
+      cart.forEach(item => {
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="padding: 10px;">
+            <strong>${item.name}</strong>
+          </td>
+          <td>
+            <input type="number" value="${item.qty}" min="1" onchange="updateQty(${item.id}, this.value)" style="width: 50px; padding: 5px;">
+          </td>
+          <td>$${item.price}</td>
+          <td>$${itemTotal}</td>
+          <td><button onclick="removeItem(${item.id})" style="color: red; background: none; border: none; cursor: pointer;">✕</button></td>
+        `;
+        tableBody.appendChild(tr);
+      });
+
+      document.getElementById('cart-total').textContent = total.toFixed(2);
+    }
+
+    function updateQty(id, qty) {
+      const item = cart.find(i => i.id == id);
+      if (item) {
+        item.qty = parseInt(qty);
+        if (item.qty < 1) item.qty = 1;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+      }
+    }
+
+    function removeItem(id) {
+      const index = cart.findIndex(i => i.id == id);
+      if (index > -1) {
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+      }
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

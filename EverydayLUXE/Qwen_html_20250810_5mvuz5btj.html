@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Malvern 3-Seater Sofa | EverydayLUXE</title>
+  <meta name="description" content="Malvern 3-Seater Sofa – Premium linen fabric, deep seating, solid timber. Free delivery. Afterpay.">
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="/" class="logo">Everyday<span>LUXE</span></a>
+      <nav>
+        <a href="../shop.html?room=living">Living Room</a>
+        <a href="../shop.html?room=bedroom">Bedroom</a>
+        <a href="../shop.html?room=dining">Dining</a>
+        <a href="../shop.html?room=outdoor">Outdoor</a>
+        <a href="../pages/about.html">About</a>
+      </nav>
+      <a href="cart.html" class="cart">🛒 <span id="cart-count">0</span></a>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="container" style="margin: 20px 0;">
+    <a href="/">Home</a> > <a href="../shop.html?room=living">Living Room</a> > Malvern 3-Seater Sofa
+  </div>
+
+  <!-- Product Page -->
+  <div class="container" style="display: flex; flex-wrap: wrap; gap: 40px; margin: 40px 0;">
+    
+    <!-- Image -->
+    <div style="flex: 1; min-width: 300px;">
+      <img src="../images/sofa1.jpg" alt="Malvern 3-Seater Sofa" style="width: 100%; border-radius: 8px;">
+    </div>
+
+    <!-- Info -->
+    <div style="flex: 1; min-width: 300px;">
+      <h1>Malvern 3-Seater Sofa</h1>
+      <p style="color: #c4a484; font-weight: 600;">FEATURED COLLECTION</p>
+      <p style="font-size: 24px; margin: 15px 0;">$1,299 <small style="color: #666; font-size: 14px;">AUD, incl. GST</small></p>
+
+      <!-- Afterpay -->
+      <p style="margin: 20px 0;">
+        <img src="https://cdn.shopify.com/shopifycloud/buy-button/assets/payment-method-icons/afterpay.svg" alt="Afterpay" width="100">
+        <br>
+        <small>or 4 payments of $324.75 with Afterpay</small>
+      </p>
+
+      <!-- Color -->
+      <div style="margin: 20px 0;">
+        <strong>Color:</strong>
+        <select style="padding: 8px; margin-left: 10px;">
+          <option>Charcoal Grey</option>
+          <option>Beige Linen</option>
+          <option>Deep Navy</option>
+        </select>
+      </div>
+
+      <!-- Add to Cart -->
+      <button onclick="addToCart(1, 'Malvern 3-Seater Sofa', 1299)" style="background: #c4a484; color: white; padding: 14px 32px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer;">
+        Add to Cart
+      </button>
+
+      <!-- Features -->
+      <div style="margin-top: 30px; padding: 20px; background: #f0ebe5; border-radius: 8px; font-size: 14px;">
+        <strong>🚚 Free Delivery</strong> – Metro Australia<br>
+        <strong>✅ 1-Year Warranty</strong> – Genuine Quality<br>
+        <strong>🇦🇺 Australian Support</strong> – We're here to help
+      </div>
+    </div>
+  </div>
+
+  <!-- Description -->
+  <div class="container" style="margin: 60px 0; line-height: 1.8;">
+    <h2>Product Details</h2>
+    <p>The Malvern 3-Seater Sofa combines modern style with everyday comfort. Handcrafted with premium linen fabric and a solid timber frame, it’s built to last. Deep seating and high-resilience foam cushions provide luxurious support.</p>
+    <ul>
+      <li>Dimensions: 210cm W x 95cm D x 85cm H</li>
+      <li>Material: Linen-blend upholstery, solid pine frame</li>
+      <li>Weight Capacity: 350kg</li>
+      <li>Assembly: Minimal (legs only)</li>
+    </ul>
+    <p>Perfect for medium to large living rooms. Ships in 2 business days.</p>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-cols">
+        <div>
+          <h4>EverydayLUXE</h4>
+          <p>Premium furniture for modern Australian homes.</p>
+        </div>
+        <div>
+          <h4>Shop</h4>
+          <a href="../shop.html?room=living">Living Room</a><br>
+          <a href="../shop.html?room=bedroom">Bedroom</a><br>
+          <a href="../shop.html?room=dining">Dining</a>
+        </div>
+        <div>
+          <h4>Help</h4>
+          <a href="../pages/about.html">About Us</a><br>
+          <a href="../pages/shipping.html">Delivery</a><br>
+          <a href="../pages/returns.html">Returns</a>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        EverydayLUXE is an independent retailer and is not affiliated with, endorsed by, or sponsored by Ashley Furniture Industries, Inc. 
+        All product images are for illustration only. ABN: 12 345 678 901.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Reuse cart functions
+    function addToCart(productId, name, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ id: productId, name, price, qty: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      alert(`${name} added to cart!`);
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const count = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cart-count').textContent = count;
+    }
+
+    // Initialize
+    updateCartCount();
+  </script>
+</body>
+</html>
